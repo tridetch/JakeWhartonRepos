@@ -5,17 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.user.jakewhartonrepos.R
+import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.presenter.Repositories.RepositoriesPresenter
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
 
 
-class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView {
+class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, RepositoryModelRecyclerViewAdapter.OnRepositoryItemInteractionListener {
     companion object {
         const val TAG = "RepositoriesActivity"
         fun getIntent(context: Context): Intent = Intent(context, RepositoriesActivity::class.java)
@@ -34,6 +38,11 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+        val recyclerView = findViewById(R.id.repositories_list) as RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = RepositoryModelRecyclerViewAdapter(ArrayList<GithubRepositoryModel>(), this)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,4 +63,7 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onRepositoryItemInteraction(item: GithubRepositoryModel) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
