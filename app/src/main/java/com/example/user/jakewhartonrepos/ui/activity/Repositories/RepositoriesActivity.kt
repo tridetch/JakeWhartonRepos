@@ -82,10 +82,14 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         super.onResume()
     }
 
-    override fun onRepositoryItemInteraction(item: GithubRepositoryModel) {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onDestroy() {
+        mRepositoriesPresenter.onDetach()
+        super.onDestroy()
     }
 
+    /**
+     * Methods implemented from {@link RepositoriesView}
+     * */
     override fun showRepoInList(gitHubRepo: GithubRepositoryModel) {
         mRecyclerViewAdapter.mValues.add(gitHubRepo) //To change body of created functions use File | Settings | File Templates.
         mRecyclerViewAdapter.notifyItemInserted(mRecyclerViewAdapter.mValues.size)
@@ -104,5 +108,12 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
     override fun clearRepoList() {
         mRecyclerViewAdapter.mValues.clear()
         mRecyclerViewAdapter.notifyDataSetChanged()
+    }
+
+    /**
+     *  Methods implemented from {@link RepositoryModelRecyclerViewAdapter.OnRepositoryItemInteractionListener}
+     * */
+    override fun onRepositoryItemInteraction(item: GithubRepositoryModel) {
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
