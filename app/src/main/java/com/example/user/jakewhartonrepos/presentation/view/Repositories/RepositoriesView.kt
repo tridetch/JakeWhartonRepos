@@ -7,4 +7,5 @@ interface RepositoriesView : MvpView {
     fun showRepoInList(gitHubRepo: GithubRepositoryModel)
     fun showErrorMessage()
     fun showCompleteMessage()
+    fun clearRepoList()
 }

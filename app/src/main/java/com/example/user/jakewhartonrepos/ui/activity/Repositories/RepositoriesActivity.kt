@@ -77,6 +77,11 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onResume() {
+        mRepositoriesPresenter.onAttach()
+        super.onResume()
+    }
+
     override fun onRepositoryItemInteraction(item: GithubRepositoryModel) {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -96,8 +101,8 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         Toast.makeText(this, "Loading complete", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onResume() {
-        super.onResume()
-        mRepositoriesPresenter.onAttach()
+    override fun clearRepoList() {
+        mRecyclerViewAdapter.mValues.clear()
+        mRecyclerViewAdapter.notifyDataSetChanged()
     }
 }
