@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.user.jakewhartonrepos.R
 import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 
-class RepositoryModelRecyclerViewAdapter(private val mValues: List<GithubRepositoryModel>, private val mListener: RepositoryModelRecyclerViewAdapter
+class RepositoryModelRecyclerViewAdapter(val mValues: ArrayList<GithubRepositoryModel>, private val mListener: RepositoryModelRecyclerViewAdapter
 .OnRepositoryItemInteractionListener?) : RecyclerView.Adapter<RepositoryModelRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
