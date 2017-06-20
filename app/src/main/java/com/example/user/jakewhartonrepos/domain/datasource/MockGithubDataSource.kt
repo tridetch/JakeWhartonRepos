@@ -7,7 +7,7 @@ import io.reactivex.Observable
 /**
  * Created by User on 20.06.2017.
  */
-class MockGithubDataSource: GitDataRepository {
+class MockGithubDataSource: GithubRepositoriesSource {
 
     val whartonsRepos: ArrayList<GithubRepositoryModel> = ArrayList()
     init {
