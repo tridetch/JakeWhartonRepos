@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -86,11 +87,13 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
     }
 
     override fun showErrorMessage() {
-        Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT)
+        Log.d("JakeWhartonRepos", "showErrorMessage")
+        Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT).show()
     }
 
     override fun showCompleteMessage() {
-        Toast.makeText(this,"Loading complete",Toast.LENGTH_SHORT)
+        Log.d("JakeWhartonRepos", "showCompleteMessage")
+        Toast.makeText(this, "Loading complete", Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
