@@ -5,15 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.user.jakewhartonrepos.R
+import com.example.user.jakewhartonrepos.domain.GitDataRepositoriesImpl
+import com.example.user.jakewhartonrepos.domain.datasource.MockGithubDataSource
 import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.presenter.Repositories.RepositoriesPresenter
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
@@ -28,6 +31,15 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
     @InjectPresenter
     lateinit var mRepositoriesPresenter: RepositoriesPresenter
 
+    @ProvidePresenter
+    fun provideRepositoriesPresenter(): RepositoriesPresenter {
+        return RepositoriesPresenter(GitDataRepositoriesImpl(MockGithubDataSource()))
+    }
+
+    private lateinit var mRecyclerView: RecyclerView
+
+    private lateinit var mRecyclerViewAdapter: RepositoryModelRecyclerViewAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repositories)
@@ -39,9 +51,10 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
                     .setAction("Action", null).show()
         }
 
-        val recyclerView = findViewById(R.id.repositories_list) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = RepositoryModelRecyclerViewAdapter(ArrayList<GithubRepositoryModel>(), this)
+        mRecyclerView = findViewById(R.id.repositories_list) as RecyclerView
+        mRecyclerView.layoutManager = LinearLayoutManager(this)
+        mRecyclerViewAdapter = RepositoryModelRecyclerViewAdapter(ArrayList<GithubRepositoryModel>(), this)
+        mRecyclerView.adapter = mRecyclerViewAdapter
 
     }
 
@@ -64,6 +77,24 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
     }
 
     override fun onRepositoryItemInteraction(item: GithubRepositoryModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showRepoInList(gitHubRepo: GithubRepositoryModel) {
+        mRecyclerViewAdapter.mValues.add(gitHubRepo) //To change body of created functions use File | Settings | File Templates.
+        mRecyclerViewAdapter.notifyItemInserted(mRecyclerViewAdapter.mValues.size)
+    }
+
+    override fun showErrorMessage() {
+        Toast.makeText(this,"Loading complete",Toast.LENGTH_SHORT)
+    }
+
+    override fun showCompleteMessage() {
+        Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mRepositoriesPresenter.onAttach()
     }
 }
