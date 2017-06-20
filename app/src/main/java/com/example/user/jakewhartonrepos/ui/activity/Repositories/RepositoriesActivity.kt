@@ -86,11 +86,11 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
     }
 
     override fun showErrorMessage() {
-        Toast.makeText(this,"Loading complete",Toast.LENGTH_SHORT)
+        Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT)
     }
 
     override fun showCompleteMessage() {
-        Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT)
+        Toast.makeText(this,"Loading complete",Toast.LENGTH_SHORT)
     }
 
     override fun onResume() {
