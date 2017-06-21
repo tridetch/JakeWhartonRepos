@@ -15,7 +15,7 @@ class JakeWhartonReposApp : Application() {
 
     private lateinit var mApplicationComponent: ApplicationComponent
 
-    private var mRepositoriesComponent: RepositoriesComponent? = null
+    private var mRepositoriesActivityComponent: RepositoriesActivityComponent? = null
 
 
     override fun onCreate() {
@@ -24,11 +24,11 @@ class JakeWhartonReposApp : Application() {
         mApplicationComponent = DaggerApplicationComponent.builder().applicationModule(ApplicationModule(this)).build()
     }
 
-    fun getRepositoriesComponent(): RepositoriesComponent {
-        if (mRepositoriesComponent == null) {
-            mRepositoriesComponent = mApplicationComponent.plusRepositoriesComponent(RepositoriesModule())
+    fun getRepositoriesActivityComponent(): RepositoriesActivityComponent {
+        if (mRepositoriesActivityComponent == null) {
+            mRepositoriesActivityComponent = mApplicationComponent.plusRepositoriesActivityComponent(RepositoriesActivityModule())
         }
 
-        return mRepositoriesComponent as RepositoriesComponent
+        return mRepositoriesActivityComponent as RepositoriesActivityComponent
     }
 }

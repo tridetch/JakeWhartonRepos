@@ -6,5 +6,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(ApplicationModule::class))
 interface ApplicationComponent {
-    fun plusRepositoriesComponent(repositoriesModule: RepositoriesModule): RepositoriesComponent
+    fun plusRepositoriesActivityComponent(repositoriesActivityModule: RepositoriesActivityModule): RepositoriesActivityComponent
 }

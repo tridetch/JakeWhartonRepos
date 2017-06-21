@@ -3,26 +3,21 @@ package com.example.user.jakewhartonrepos.presentation.presenter.Repositories
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.example.user.jakewhartonrepos.domain.repository.GitDataRepository
+import com.example.user.jakewhartonrepos.domain.interactor.getJWRepositories
+import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
-import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
 
 @InjectViewState
-class RepositoriesPresenter(val githubDataRepository: GitDataRepository) : MvpPresenter<RepositoriesView>() {
+class RepositoriesPresenter(val getJWRepositories: getJWRepositories) : MvpPresenter<RepositoriesView>() {
 
-    var githubRepositoriesObserver: Disposable? = null
+    var githubRepositoriesObserver: JwRepositoriesObserver? = null
 
     fun onAttach() {
-//        viewState.clearRepoList()
-        //TODO("later") // observe on backgroundThread, subscribe on main thread
         if (githubRepositoriesObserver == null) {
             Log.d("JakeWhartonRepos", "subscribe to observable")
-            githubRepositoriesObserver = githubDataRepository.getGithubRepositories()
-                    .flatMapIterable { it -> it }
-                    .filter { (name) -> !name.startsWith("T", true) }
-                    .subscribe({ githubRepo -> viewState.showRepoInList(githubRepo) },
-                            { err -> viewState.showErrorMessage() },
-                            { -> viewState.showCompleteMessage() })
+            githubRepositoriesObserver = JwRepositoriesObserver()
+            getJWRepositories.execute(observer = githubRepositoriesObserver as JwRepositoriesObserver)
         }
     }
 
@@ -30,4 +25,20 @@ class RepositoriesPresenter(val githubDataRepository: GitDataRepository) : MvpPr
         Log.d("JakeWhartonRepos", "unsubscribe from observable")
         githubRepositoriesObserver?.dispose()
     }
+
+    inner class JwRepositoriesObserver : DisposableObserver<GithubRepositoryModel>() {
+        override fun onNext(githubRepository: GithubRepositoryModel) {
+            this@RepositoriesPresenter.viewState.showRepoInList(githubRepository)
+        }
+
+        override fun onError(e: Throwable?) {
+            this@RepositoriesPresenter.viewState.showErrorMessage()
+        }
+
+        override fun onComplete() {
+            this@RepositoriesPresenter.viewState.showCompleteMessage()
+        }
+
+    }
+
 }

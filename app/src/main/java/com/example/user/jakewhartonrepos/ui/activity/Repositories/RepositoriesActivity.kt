@@ -21,7 +21,6 @@ import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.presenter.Repositories.RepositoriesPresenter
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
 
-
 class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, RepositoryModelRecyclerViewAdapter.OnRepositoryItemInteractionListener {
     companion object {
         const val TAG = "RepositoriesActivity"
@@ -35,7 +34,8 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
 
     @ProvidePresenter
     fun provideRepositoriesPresenter(): RepositoriesPresenter {
-        return JakeWhartonReposApp.get().getRepositoriesComponent().provideRepositoriesPresenter()
+        Log.d("JakeWhartonRepos", "Provide RepositoriesPresenter ")
+        return JakeWhartonReposApp.get().getRepositoriesActivityComponent().provideRepositoriesPresenter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
