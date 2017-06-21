@@ -14,9 +14,9 @@ class RepositoriesPresenter(val getJWRepositories: getJWRepositories) : MvpPrese
     var githubRepositoriesObserver: JwRepositoriesObserver? = null
 
     fun onAttach() {
-        viewState.showLoading()
         if (githubRepositoriesObserver == null) {
             Log.d("JakeWhartonRepos", "subscribe to observable")
+            viewState.showLoading()
             githubRepositoriesObserver = JwRepositoriesObserver()
             getJWRepositories.execute(observer = githubRepositoriesObserver as JwRepositoriesObserver)
         }
