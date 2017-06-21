@@ -15,9 +15,8 @@ import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.example.user.jakewhartonrepos.JakeWhartonReposApp
 import com.example.user.jakewhartonrepos.R
-import com.example.user.jakewhartonrepos.domain.GitDataRepositoriesImpl
-import com.example.user.jakewhartonrepos.domain.datasource.MockGithubDataSource
 import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.presenter.Repositories.RepositoriesPresenter
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
@@ -29,17 +28,15 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         fun getIntent(context: Context): Intent = Intent(context, RepositoriesActivity::class.java)
     }
 
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mRecyclerViewAdapter: RepositoryModelRecyclerViewAdapter
     @InjectPresenter
     lateinit var mRepositoriesPresenter: RepositoriesPresenter
 
     @ProvidePresenter
     fun provideRepositoriesPresenter(): RepositoriesPresenter {
-        return RepositoriesPresenter(GitDataRepositoriesImpl(MockGithubDataSource()))
+        return JakeWhartonReposApp.get().getRepositoriesComponent().provideRepositoriesPresenter()
     }
-
-    private lateinit var mRecyclerView: RecyclerView
-
-    private lateinit var mRecyclerViewAdapter: RepositoryModelRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
