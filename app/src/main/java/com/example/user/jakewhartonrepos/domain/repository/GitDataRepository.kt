@@ -1,4 +1,4 @@
-package com.example.user.jakewhartonrepos.domain
+package com.example.user.jakewhartonrepos.domain.repository
 
 import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import io.reactivex.Observable
