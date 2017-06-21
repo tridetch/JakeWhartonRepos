@@ -17,11 +17,12 @@ class RepositoriesPresenter(val githubDataRepository: GitDataRepository) : MvpPr
         //TODO("later") // observe on backgroundThread, subscribe on main thread
         if (githubRepositoriesObserver == null) {
             Log.d("JakeWhartonRepos", "subscribe to observable")
-            githubRepositoriesObserver = githubDataRepository.getGithubRepositories().filter { r -> !r.name.startsWith("T", true) }.subscribe(
-                    { gitHubRepo -> viewState.showRepoInList(gitHubRepo) },
-                    { err -> viewState.showErrorMessage() },
-                    { -> viewState.showCompleteMessage() }
-            )
+            githubRepositoriesObserver = githubDataRepository.getGithubRepositories()
+                    .flatMapIterable { it -> it }
+                    .filter { (name) -> !name.startsWith("T", true) }
+                    .subscribe({ githubRepo -> viewState.showRepoInList(githubRepo) },
+                            { err -> viewState.showErrorMessage() },
+                            { -> viewState.showCompleteMessage() })
         }
     }
 
