@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -76,25 +77,43 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRepositoryItemInteraction(item: GithubRepositoryModel) {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onResume() {
+        mRepositoriesPresenter.onAttach()
+        super.onResume()
     }
 
+    override fun onDestroy() {
+        mRepositoriesPresenter.onDetach()
+        super.onDestroy()
+    }
+
+    /**
+     * Methods implemented from {@link RepositoriesView}
+     * */
     override fun showRepoInList(gitHubRepo: GithubRepositoryModel) {
         mRecyclerViewAdapter.mValues.add(gitHubRepo) //To change body of created functions use File | Settings | File Templates.
         mRecyclerViewAdapter.notifyItemInserted(mRecyclerViewAdapter.mValues.size)
     }
 
     override fun showErrorMessage() {
-        Toast.makeText(this,"Loading complete",Toast.LENGTH_SHORT)
+        Log.d("JakeWhartonRepos", "showErrorMessage")
+        Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT).show()
     }
 
     override fun showCompleteMessage() {
-        Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT)
+        Log.d("JakeWhartonRepos", "showCompleteMessage")
+        Toast.makeText(this, "Loading complete", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onResume() {
-        super.onResume()
-        mRepositoriesPresenter.onAttach()
+    override fun clearRepoList() {
+        mRecyclerViewAdapter.mValues.clear()
+        mRecyclerViewAdapter.notifyDataSetChanged()
+    }
+
+    /**
+     *  Methods implemented from {@link RepositoryModelRecyclerViewAdapter.OnRepositoryItemInteractionListener}
+     * */
+    override fun onRepositoryItemInteraction(item: GithubRepositoryModel) {
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
