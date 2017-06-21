@@ -9,6 +9,7 @@ import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 interface RepositoriesView : MvpView {
     fun showRepoInList(gitHubRepo: GithubRepositoryModel)
     fun showErrorMessage()
-    fun showCompleteMessage()
+    fun hideLoading()
     fun clearRepoList()
+    fun showLoading()
 }

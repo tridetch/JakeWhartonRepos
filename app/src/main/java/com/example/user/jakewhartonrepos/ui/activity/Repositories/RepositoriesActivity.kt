@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -87,9 +88,14 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
     /**
      * Methods implemented from {@link RepositoriesView}
      * */
+
     override fun showRepoInList(gitHubRepo: GithubRepositoryModel) {
         mRecyclerViewAdapter.mValues.add(gitHubRepo) //To change body of created functions use File | Settings | File Templates.
         mRecyclerViewAdapter.notifyItemInserted(mRecyclerViewAdapter.mValues.size)
+    }
+
+    override fun showLoading() {
+        findViewById(R.id.loading_view).visibility = View.VISIBLE
     }
 
     override fun showErrorMessage() {
@@ -97,9 +103,8 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT).show()
     }
 
-    override fun showCompleteMessage() {
-        Log.d("JakeWhartonRepos", "showCompleteMessage")
-        Toast.makeText(this, "Loading complete", Toast.LENGTH_SHORT).show()
+    override fun hideLoading() {
+        findViewById(R.id.loading_view).visibility = View.GONE
     }
 
     override fun clearRepoList() {
