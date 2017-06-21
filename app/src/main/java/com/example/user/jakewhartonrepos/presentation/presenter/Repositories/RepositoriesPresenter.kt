@@ -9,11 +9,12 @@ import com.example.user.jakewhartonrepos.presentation.view.Repositories.Reposito
 class RepositoriesPresenter(val githubDataRepository: GitDataRepository) : MvpPresenter<RepositoriesView>() {
 
     fun onAttach() {
-        githubDataRepository.getGithubRepositories().filter { r-> !r.name.startsWith("T") }.subscribe(
-                {gitHubRepo -> viewState.showRepoInList(gitHubRepo)},
-                {err -> viewState.showErrorMessage()},
-                {-> viewState.showCompleteMessage()}
-        )
+        githubDataRepository.getGithubRepositories()
+                .flatMapIterable { it -> it }
+                .filter { (name) -> !name.startsWith("T", true) }
+                .subscribe({ githubRepo -> viewState.showRepoInList(githubRepo) },
+                        { err -> viewState.showErrorMessage() },
+                        { -> viewState.showCompleteMessage() })
     }
 
 }

@@ -9,7 +9,7 @@ import io.reactivex.Observable
  */
 class GitDataRepositoriesImpl(val githubApiDataSource: GithubRepositoriesSource) : GitDataRepository {
 
-    override fun getGithubRepositories(): Observable<GithubRepositoryModel> {
+    override fun getGithubRepositories(): Observable<List<GithubRepositoryModel>> {
         return githubApiDataSource.getGithubRepositories()
     }
 }

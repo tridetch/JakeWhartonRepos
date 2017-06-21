@@ -17,12 +17,7 @@ class MockGithubDataSource : GithubRepositoriesSource {
         whartonsRepos.add(GithubRepositoryModel("Reagent", "An experiment which rewrites RxJava-like types using polymorphism (and also in Kotlin).", 74))
     }
 
-    override fun getGithubRepositories(): Observable<GithubRepositoryModel> {
-        return Observable.create { emitter ->
-            for (repository in whartonsRepos) {
-                emitter.onNext(repository)
-            }
-            emitter.onComplete()
-        }
+    override fun getGithubRepositories(): Observable<List<GithubRepositoryModel>> {
+        return Observable.fromArray(whartonsRepos)
     }
 }
