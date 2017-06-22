@@ -9,7 +9,7 @@
     android:scrollbars="horizontal"
     android:background="#f5f5f5"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.user.jakewhartonrepos.ui.activity.Repositories.RepositoriesActivity"
+    tools:context=".presentation.android.RepositoriesActivity"
     tools:listitem="@layout/github_repo_list_item"
     tools:showIn="@layout/activity_repositories">
 

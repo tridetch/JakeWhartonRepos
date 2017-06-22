@@ -1,4 +1,4 @@
-package com.example.user.jakewhartonrepos.ui.activity.Repositories
+package com.example.user.jakewhartonrepos.presentation.android
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
