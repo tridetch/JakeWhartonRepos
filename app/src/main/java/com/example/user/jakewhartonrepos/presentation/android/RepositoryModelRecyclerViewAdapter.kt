@@ -9,7 +9,7 @@ import com.example.user.jakewhartonrepos.R
 import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 
 class RepositoryModelRecyclerViewAdapter(val mValues: ArrayList<GithubRepositoryModel>, private val mListener: RepositoryModelRecyclerViewAdapter
-.OnRepositoryItemInteractionListener?) : RecyclerView.Adapter<RepositoryModelRecyclerViewAdapter.ViewHolder>() {
+.OnRepositoryItemInteractionListener) : RecyclerView.Adapter<RepositoryModelRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -25,7 +25,7 @@ class RepositoryModelRecyclerViewAdapter(val mValues: ArrayList<GithubRepository
         holder.mRepoStars.text = repository.stars.toString()
 
         holder.mView.setOnClickListener {
-            mListener?.onRepositoryItemInteraction(holder.mItem as GithubRepositoryModel)
+            mListener.onRepositoryItemInteraction(holder.mItem as GithubRepositoryModel)
         }
     }
 
