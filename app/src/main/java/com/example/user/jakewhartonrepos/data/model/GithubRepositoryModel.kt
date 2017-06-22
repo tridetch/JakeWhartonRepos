@@ -1,4 +1,4 @@
-package com.example.user.jakewhartonrepos.model
+package com.example.user.jakewhartonrepos.data.model
 
 import com.google.gson.annotations.SerializedName
 
