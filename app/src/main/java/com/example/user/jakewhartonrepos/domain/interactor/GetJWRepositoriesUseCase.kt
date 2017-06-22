@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Use the case to retrieve the Jake Wharton repository collection, except those whose names begin with the letter "T" {@link User}.
  * */
-class getJWRepositories @Inject constructor(val githubDataRepository: GitDataRepository) {
+class GetJWRepositoriesUseCase @Inject constructor(val githubDataRepository: GitDataRepository) {
     fun execute(observer: DisposableObserver<GithubRepositoryModel>) {
         githubDataRepository.getGithubRepositories("JakeWharton")
                 .flatMapIterable { it -> it }

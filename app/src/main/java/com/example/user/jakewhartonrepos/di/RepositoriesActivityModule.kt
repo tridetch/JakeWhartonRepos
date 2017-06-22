@@ -1,6 +1,6 @@
 package com.example.user.jakewhartonrepos.di
 
-import com.example.user.jakewhartonrepos.domain.interactor.getJWRepositories
+import com.example.user.jakewhartonrepos.domain.interactor.GetJWRepositoriesUseCase
 import com.example.user.jakewhartonrepos.presentation.presenter.Repositories.RepositoriesPresenter
 import dagger.Module
 import dagger.Provides
@@ -9,7 +9,7 @@ import dagger.Provides
 class RepositoriesActivityModule {
 
     @Provides
-    fun provideRepositoriesPresenter(getJWRepositoriesUseCase: getJWRepositories): RepositoriesPresenter {
-        return RepositoriesPresenter(getJWRepositoriesUseCase)
+    fun provideRepositoriesPresenter(getJWRepositoriesUseCaseUseCase: GetJWRepositoriesUseCase): RepositoriesPresenter {
+        return RepositoriesPresenter(getJWRepositoriesUseCaseUseCase)
     }
 }

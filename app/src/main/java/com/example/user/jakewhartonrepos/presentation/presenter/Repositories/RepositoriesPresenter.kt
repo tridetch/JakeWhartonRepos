@@ -3,13 +3,13 @@ package com.example.user.jakewhartonrepos.presentation.presenter.Repositories
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.example.user.jakewhartonrepos.domain.interactor.getJWRepositories
+import com.example.user.jakewhartonrepos.domain.interactor.GetJWRepositoriesUseCase
 import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
 import io.reactivex.observers.DisposableObserver
 
 @InjectViewState
-class RepositoriesPresenter(val getJWRepositories: getJWRepositories) : MvpPresenter<RepositoriesView>() {
+class RepositoriesPresenter(val GetJWRepositoriesUseCase: GetJWRepositoriesUseCase) : MvpPresenter<RepositoriesView>() {
 
     var githubRepositoriesObserver: JwRepositoriesObserver? = null
 
@@ -33,7 +33,7 @@ class RepositoriesPresenter(val getJWRepositories: getJWRepositories) : MvpPrese
         viewState.showLoading()
         viewState.clearRepositoriesList()
         githubRepositoriesObserver = JwRepositoriesObserver()
-        getJWRepositories.execute(observer = githubRepositoriesObserver as JwRepositoriesObserver)
+        GetJWRepositoriesUseCase.execute(observer = githubRepositoriesObserver as JwRepositoriesObserver)
     }
 
     inner class JwRepositoriesObserver : DisposableObserver<GithubRepositoryModel>() {
