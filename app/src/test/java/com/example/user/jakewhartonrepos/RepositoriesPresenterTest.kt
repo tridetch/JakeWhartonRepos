@@ -5,33 +5,31 @@ import com.example.user.jakewhartonrepos.domain.repository.GitDataRepositoriesIm
 import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.presenter.Repositories.RepositoriesPresenter
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.Mockito.verify
-import org.mockito.MockitoAnnotations
 
 class RepositoriesPresenterTest {
 
     lateinit var repositoriesPresenter: RepositoriesPresenter
 
-    @Mock
-    lateinit var repositoriesView: RepositoriesView
-    @Mock
-    lateinit var getJwRepositoriesUseCase: GetJWRepositoriesUseCase
-    @Mock
-    lateinit var gitDataRepositoriesImpl: GitDataRepositoriesImpl
+    //    @Mock
+    var repositoriesView: RepositoriesView = mock()
+    //    @Mock
+    var getJwRepositoriesUseCase: GetJWRepositoriesUseCase = mock()
+    //    @Mock
+    var gitDataRepositoriesImpl: GitDataRepositoriesImpl = mock()
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+//        MockitoAnnotations.initMocks(this)
         repositoriesPresenter = RepositoriesPresenter(getJwRepositoriesUseCase)
         getJwRepositoriesUseCase.githubDataRepository = gitDataRepositoriesImpl
-        Mockito.`when`(gitDataRepositoriesImpl.getGithubRepositories(Matchers.anyString())).thenReturn(getStubObservable())
+        whenever(gitDataRepositoriesImpl.getGithubRepositories(any())).thenReturn(getStubObservable())
         repositoriesPresenter.attachView(repositoriesView)
     }
 
