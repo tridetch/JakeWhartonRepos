@@ -50,7 +50,8 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         }
 
         mRecyclerView = findViewById(R.id.repositories_list) as RecyclerView
-        mRecyclerView.layoutManager = LinearLayoutManager(this)
+        mRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
         mRecyclerViewAdapter = RepositoryModelRecyclerViewAdapter(ArrayList<GithubRepositoryModel>(), this)
         mRecyclerView.adapter = mRecyclerViewAdapter
     }

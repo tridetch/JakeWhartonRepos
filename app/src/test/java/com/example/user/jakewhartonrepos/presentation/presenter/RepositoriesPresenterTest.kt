@@ -40,7 +40,7 @@ class RepositoriesPresenterTest {
         repositoriesPresenter.onRefreshClick()
         verify(repositoriesView).showLoading()
         verify(repositoriesView).clearRepositoriesList()
-//        verify(getJwRepositoriesUseCase).execute(any())
+        verify(getJwRepositoriesUseCase).execute(any())
     }
 
     fun getStubObservable(): Observable<List<GithubRepositoryModel>> {

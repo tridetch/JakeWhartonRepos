@@ -8,7 +8,6 @@ import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
-import java.util.concurrent.Executor
 
 class GetJWRepositoriesUseCaseTest {
 
