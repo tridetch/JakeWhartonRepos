@@ -115,11 +115,6 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         findViewById(R.id.loading_view).visibility = View.GONE
     }
 
-    override fun clearRepoList() {
-        mRecyclerViewAdapter.mValues.clear()
-        mRecyclerViewAdapter.notifyDataSetChanged()
-    }
-
     /**
      *  Methods implemented from {@link RepositoryModelRecyclerViewAdapter.OnRepositoryItemInteractionListener}
      * */

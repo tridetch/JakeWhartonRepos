@@ -9,6 +9,5 @@ interface RepositoriesView : MvpView {
     fun clearRepositoriesList()
     fun showErrorMessage()
     fun hideLoading()
-    fun clearRepoList()
     fun showLoading()
 }

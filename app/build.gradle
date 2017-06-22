@@ -28,6 +28,9 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -57,7 +60,11 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     //gson
     compile 'com.google.code.gson:gson:2.8.1'
+
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
+
 }
 kapt {
     generateStubs = true

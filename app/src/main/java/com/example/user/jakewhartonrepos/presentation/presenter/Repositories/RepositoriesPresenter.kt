@@ -9,7 +9,7 @@ import com.example.user.jakewhartonrepos.presentation.view.Repositories.Reposito
 import io.reactivex.observers.DisposableObserver
 
 @InjectViewState
-class RepositoriesPresenter(val GetJWRepositoriesUseCase: GetJWRepositoriesUseCase) : MvpPresenter<RepositoriesView>() {
+class RepositoriesPresenter(val getJWRepositoriesUseCase: GetJWRepositoriesUseCase) : MvpPresenter<RepositoriesView>() {
 
     var githubRepositoriesObserver: JwRepositoriesObserver? = null
 
@@ -22,6 +22,7 @@ class RepositoriesPresenter(val GetJWRepositoriesUseCase: GetJWRepositoriesUseCa
     fun onDetach() {
         Log.d("JakeWhartonRepos", "unsubscribe from observable")
         githubRepositoriesObserver?.dispose()
+        githubRepositoriesObserver = null
     }
 
     fun onRefreshClick() {
@@ -33,10 +34,10 @@ class RepositoriesPresenter(val GetJWRepositoriesUseCase: GetJWRepositoriesUseCa
         viewState.showLoading()
         viewState.clearRepositoriesList()
         githubRepositoriesObserver = JwRepositoriesObserver()
-        GetJWRepositoriesUseCase.execute(observer = githubRepositoriesObserver as JwRepositoriesObserver)
+        getJWRepositoriesUseCase.execute(observer = githubRepositoriesObserver as JwRepositoriesObserver)
     }
 
-    inner class JwRepositoriesObserver : DisposableObserver<GithubRepositoryModel>() {
+    open inner class JwRepositoriesObserver : DisposableObserver<GithubRepositoryModel>() {
         override fun onNext(githubRepository: GithubRepositoryModel) {
             this@RepositoriesPresenter.viewState.showRepoInList(githubRepository)
         }
