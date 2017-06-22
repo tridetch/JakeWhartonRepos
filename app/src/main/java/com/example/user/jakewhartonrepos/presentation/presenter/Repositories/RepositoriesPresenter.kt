@@ -3,8 +3,8 @@ package com.example.user.jakewhartonrepos.presentation.presenter.Repositories
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.domain.interactor.GetJWRepositoriesUseCase
-import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
 import io.reactivex.observers.DisposableObserver
 

@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
 import com.example.user.jakewhartonrepos.R
-import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
+import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 
 class RepositoryModelRecyclerViewAdapter(val mValues: ArrayList<GithubRepositoryModel>, private val mListener: RepositoryModelRecyclerViewAdapter
 .OnRepositoryItemInteractionListener?) : RecyclerView.Adapter<RepositoryModelRecyclerViewAdapter.ViewHolder>() {
@@ -19,7 +18,7 @@ class RepositoryModelRecyclerViewAdapter(val mValues: ArrayList<GithubRepository
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val repository:GithubRepositoryModel = mValues[position]
+        val repository: GithubRepositoryModel = mValues[position]
         holder.mItem = repository
         holder.mRepoName.text = repository.name
         holder.mRepoDescription.text = repository.description

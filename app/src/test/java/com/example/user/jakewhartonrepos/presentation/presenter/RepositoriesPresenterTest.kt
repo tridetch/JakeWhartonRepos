@@ -1,15 +1,17 @@
 package com.example.user.jakewhartonrepos.presentation.presenter
 
+import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.domain.interactor.GetJWRepositoriesUseCase
 import com.example.user.jakewhartonrepos.domain.repository.GitDataRepositoriesImpl
-import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.presentation.presenter.Repositories.RepositoriesPresenter
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
+import com.example.user.jakewhartonrepos.utils.TestExecutor
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
 
@@ -17,13 +19,16 @@ class RepositoriesPresenterTest {
 
     lateinit var repositoriesPresenter: RepositoriesPresenter
 
-    var repositoriesView: RepositoriesView = mock()
-    var getJwRepositoriesUseCase: GetJWRepositoriesUseCase = mock()
-    var gitDataRepositoriesImpl: GitDataRepositoriesImpl = mock()
+    val repositoriesView: RepositoriesView = mock()
+    val getJwRepositoriesUseCase: GetJWRepositoriesUseCase = mock()
+    val gitDataRepositoriesImpl: GitDataRepositoriesImpl = mock()
 
     @Before
     fun setUp() {
         repositoriesPresenter = RepositoriesPresenter(getJwRepositoriesUseCase)
+        getJwRepositoriesUseCase.githubDataRepository = gitDataRepositoriesImpl
+        getJwRepositoriesUseCase.subscribeScheduler = Schedulers.from(TestExecutor())
+        getJwRepositoriesUseCase.observeScheduler = Schedulers.from(TestExecutor())
         getJwRepositoriesUseCase.githubDataRepository = gitDataRepositoriesImpl
         whenever(gitDataRepositoriesImpl.getGithubRepositories(any())).thenReturn(getStubObservable())
         repositoriesPresenter.attachView(repositoriesView)

@@ -1,7 +1,7 @@
 package com.example.user.jakewhartonrepos.domain.repository.datasource
 
+import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.data.net.GithubService
-import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import io.reactivex.Observable
 import javax.inject.Inject
 

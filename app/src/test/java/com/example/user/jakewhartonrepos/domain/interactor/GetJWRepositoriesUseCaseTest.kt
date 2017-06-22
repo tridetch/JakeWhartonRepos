@@ -1,7 +1,8 @@
 package com.example.user.jakewhartonrepos.domain.interactor
 
+import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.domain.repository.GitDataRepository
-import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
+import com.example.user.jakewhartonrepos.utils.TestExecutor
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +16,7 @@ class GetJWRepositoriesUseCaseTest {
 
     @Before
     fun setUp() {
-        getJwRepositoriesUseCase = GetJWRepositoriesUseCase(StubGitDataRepository(), Schedulers.from(MainThreadExecutor()), Schedulers.from(MainThreadExecutor()))
+        getJwRepositoriesUseCase = GetJWRepositoriesUseCase(StubGitDataRepository(), Schedulers.from(TestExecutor()), Schedulers.from(TestExecutor()))
     }
 
     @Test
@@ -36,12 +37,6 @@ class GetJWRepositoriesUseCaseTest {
 
         override fun getGithubRepositories(username: String): Observable<List<GithubRepositoryModel>> {
             return Observable.fromArray(whartonsRepos)
-        }
-    }
-
-    private class MainThreadExecutor : Executor {
-        override fun execute(runnable: Runnable) {
-            runnable.run()
         }
     }
 

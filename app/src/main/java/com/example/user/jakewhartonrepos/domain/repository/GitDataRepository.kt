@@ -1,6 +1,6 @@
 package com.example.user.jakewhartonrepos.domain.repository
 
-import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
+import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 import io.reactivex.Observable
 
 /**

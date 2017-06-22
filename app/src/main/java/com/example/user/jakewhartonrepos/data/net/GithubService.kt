@@ -1,6 +1,6 @@
 package com.example.user.jakewhartonrepos.data.net
 
-import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
+import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
