@@ -12,7 +12,7 @@ import javax.inject.Inject
 open class GetJWRepositoriesUseCase @Inject constructor(var githubDataRepository: GitDataRepository,
                                                         var subscribeScheduler: Scheduler,
                                                         var observeScheduler: Scheduler) {
-    fun execute(observer: Observer<GithubRepositoryModel>) {
+    open fun execute(observer: Observer<GithubRepositoryModel>) {
         githubDataRepository.getGithubRepositories("JakeWharton")
                 .flatMapIterable { it -> it }
                 .filter { (name) -> !name.startsWith("T", true) }

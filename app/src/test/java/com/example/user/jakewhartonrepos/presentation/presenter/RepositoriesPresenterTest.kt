@@ -26,11 +26,11 @@ class RepositoriesPresenterTest {
     @Before
     fun setUp() {
         repositoriesPresenter = RepositoriesPresenter(getJwRepositoriesUseCase)
+        whenever(gitDataRepositoriesImpl.getGithubRepositories(any())).thenReturn(getStubObservable())
         getJwRepositoriesUseCase.githubDataRepository = gitDataRepositoriesImpl
         getJwRepositoriesUseCase.subscribeScheduler = Schedulers.from(TestExecutor())
         getJwRepositoriesUseCase.observeScheduler = Schedulers.from(TestExecutor())
         getJwRepositoriesUseCase.githubDataRepository = gitDataRepositoriesImpl
-        whenever(gitDataRepositoriesImpl.getGithubRepositories(any())).thenReturn(getStubObservable())
         repositoriesPresenter.attachView(repositoriesView)
     }
 
