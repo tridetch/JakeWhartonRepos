@@ -3,12 +3,11 @@ package com.example.user.jakewhartonrepos.domain.interactor
 import com.example.user.jakewhartonrepos.domain.repository.GitDataRepository
 import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.observers.TestObserver
-import org.junit.Assert
+import io.reactivex.schedulers.Schedulers
 import org.junit.Before
 import org.junit.Test
+import java.util.concurrent.Executor
 
 class GetJWRepositoriesUseCaseTest {
 
@@ -16,25 +15,14 @@ class GetJWRepositoriesUseCaseTest {
 
     @Before
     fun setUp() {
-        getJwRepositoriesUseCase = GetJWRepositoriesUseCase(StubGitDataRepository())
+        getJwRepositoriesUseCase = GetJWRepositoriesUseCase(StubGitDataRepository(), Schedulers.from(MainThreadExecutor()), Schedulers.from(MainThreadExecutor()))
     }
 
     @Test
     fun execute() {
-        getJwRepositoriesUseCase.execute(TestJwRepositoriesObserver())
-    }
-
-    open inner class TestJwRepositoriesObserver : DisposableObserver<GithubRepositoryModel>() {
-        override fun onNext(githubRepository: GithubRepositoryModel) {
-            Assert.assertTrue(!githubRepository.name.startsWith("T"))
-        }
-
-        override fun onError(e: Throwable?) {
-        }
-
-        override fun onComplete() {
-        }
-
+        val testSubscriber: TestObserver<GithubRepositoryModel> = TestObserver()
+        getJwRepositoriesUseCase.execute(testSubscriber)
+        testSubscriber.assertNever { (name)-> name.startsWith("T",true) }
     }
 
     class StubGitDataRepository : GitDataRepository {
@@ -48,6 +36,12 @@ class GetJWRepositoriesUseCaseTest {
 
         override fun getGithubRepositories(username: String): Observable<List<GithubRepositoryModel>> {
             return Observable.fromArray(whartonsRepos)
+        }
+    }
+
+    private class MainThreadExecutor : Executor {
+        override fun execute(runnable: Runnable) {
+            runnable.run()
         }
     }
 
