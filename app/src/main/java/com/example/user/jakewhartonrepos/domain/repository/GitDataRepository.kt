@@ -10,5 +10,5 @@ interface GitDataRepository {
     /**
      * Get an {@link Observable} which will emit a List of {@link GithubRepositoryModel}.
      */
-    fun getGithubRepositories(): Observable<List<GithubRepositoryModel>>
+    fun getGithubRepositories(username: String): Observable<List<GithubRepositoryModel>>
 }

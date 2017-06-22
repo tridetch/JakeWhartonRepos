@@ -6,7 +6,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class GithubApiDatasource @Inject constructor(val githubService: GithubService) : GithubRepositoriesSource {
-    override fun getGithubRepositories(): Observable<List<GithubRepositoryModel>> {
-        return githubService.repositories()
+    override fun getGithubRepositories(username: String): Observable<List<GithubRepositoryModel>> {
+        return githubService.repositories(username)
     }
 }

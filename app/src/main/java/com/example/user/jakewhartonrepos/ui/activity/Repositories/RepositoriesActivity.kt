@@ -44,17 +44,16 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         setContentView(R.layout.activity_repositories)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
+
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            mRepositoriesPresenter.onRefreshClick()
         }
 
         mRecyclerView = findViewById(R.id.repositories_list) as RecyclerView
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mRecyclerViewAdapter = RepositoryModelRecyclerViewAdapter(ArrayList<GithubRepositoryModel>(), this)
         mRecyclerView.adapter = mRecyclerViewAdapter
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -94,13 +93,22 @@ class RepositoriesActivity : MvpAppCompatActivity(), RepositoriesView, Repositor
         mRecyclerViewAdapter.notifyItemInserted(mRecyclerViewAdapter.mValues.size)
     }
 
+    override fun refresh() {
+        mRepositoriesPresenter.onRefreshClick()
+    }
+
+    override fun clearRepositoriesList() {
+        mRecyclerViewAdapter.mValues.clear()
+        mRecyclerViewAdapter.notifyDataSetChanged()
+    }
+
     override fun showLoading() {
         findViewById(R.id.loading_view).visibility = View.VISIBLE
     }
 
     override fun showErrorMessage() {
         Log.d("JakeWhartonRepos", "showErrorMessage")
-        Toast.makeText(this,"Some error occur",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Some error occur", Toast.LENGTH_SHORT).show()
     }
 
     override fun hideLoading() {

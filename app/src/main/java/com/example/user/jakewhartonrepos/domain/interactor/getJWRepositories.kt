@@ -12,7 +12,7 @@ import javax.inject.Inject
  * */
 class getJWRepositories @Inject constructor(val githubDataRepository: GitDataRepository) {
     fun execute(observer: DisposableObserver<GithubRepositoryModel>) {
-        githubDataRepository.getGithubRepositories()
+        githubDataRepository.getGithubRepositories("JakeWharton")
                 .flatMapIterable { it -> it }
                 .filter { (name) -> !name.startsWith("T", true) }
                 .subscribeOn(Schedulers.io())

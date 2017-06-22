@@ -7,5 +7,5 @@ import io.reactivex.Observable
  * Created by User on 20.06.2017.
  */
 interface GithubRepositoriesSource {
-    fun getGithubRepositories(): Observable<List<GithubRepositoryModel>>
+    fun getGithubRepositories(username: String): Observable<List<GithubRepositoryModel>>
 }

@@ -15,10 +15,7 @@ class RepositoriesPresenter(val getJWRepositories: getJWRepositories) : MvpPrese
 
     fun onAttach() {
         if (githubRepositoriesObserver == null) {
-            Log.d("JakeWhartonRepos", "subscribe to observable")
-            viewState.showLoading()
-            githubRepositoriesObserver = JwRepositoriesObserver()
-            getJWRepositories.execute(observer = githubRepositoriesObserver as JwRepositoriesObserver)
+            refreshListOfRepositories()
         }
     }
 
@@ -27,12 +24,25 @@ class RepositoriesPresenter(val getJWRepositories: getJWRepositories) : MvpPrese
         githubRepositoriesObserver?.dispose()
     }
 
+    fun onRefreshClick() {
+        refreshListOfRepositories()
+    }
+
+    private fun refreshListOfRepositories() {
+        Log.d("JakeWhartonRepos", "onRefreshClick")
+        viewState.showLoading()
+        viewState.clearRepositoriesList()
+        githubRepositoriesObserver = JwRepositoriesObserver()
+        getJWRepositories.execute(observer = githubRepositoriesObserver as JwRepositoriesObserver)
+    }
+
     inner class JwRepositoriesObserver : DisposableObserver<GithubRepositoryModel>() {
         override fun onNext(githubRepository: GithubRepositoryModel) {
             this@RepositoriesPresenter.viewState.showRepoInList(githubRepository)
         }
 
         override fun onError(e: Throwable?) {
+            this@RepositoriesPresenter.viewState.hideLoading()
             this@RepositoriesPresenter.viewState.showErrorMessage()
         }
 
