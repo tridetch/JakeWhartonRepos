@@ -2,11 +2,12 @@ package com.example.user.jakewhartonrepos.domain.repository.datasource
 
 import com.example.user.jakewhartonrepos.model.GithubRepositoryModel
 import io.reactivex.Observable
+import javax.inject.Inject
 
 /**
  * Created by User on 20.06.2017.
  */
-class MockGithubDataSource : GithubRepositoriesSource {
+class MockGithubDataSource @Inject constructor() : GithubRepositoriesSource {
 
     val whartonsRepos: ArrayList<GithubRepositoryModel> = ArrayList()
 

@@ -19,6 +19,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        production {
+        }
+        mockServer {
+        }
+    }
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
