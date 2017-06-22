@@ -1,9 +1,8 @@
-package com.example.user.jakewhartonrepos.presentation.presenter
+package com.example.user.jakewhartonrepos.presentation.presenter.Repositories
 
 import com.example.user.jakewhartonrepos.data.model.GithubRepositoryModel
 import com.example.user.jakewhartonrepos.domain.interactor.GetJWRepositoriesUseCase
 import com.example.user.jakewhartonrepos.domain.repository.GitDataRepositoriesImpl
-import com.example.user.jakewhartonrepos.presentation.presenter.Repositories.RepositoriesPresenter
 import com.example.user.jakewhartonrepos.presentation.view.Repositories.RepositoriesView
 import com.example.user.jakewhartonrepos.utils.TestExecutor
 import com.nhaarman.mockito_kotlin.any
@@ -22,6 +21,7 @@ class RepositoriesPresenterTest {
     val repositoriesView: RepositoriesView = mock()
     val getJwRepositoriesUseCase: GetJWRepositoriesUseCase = mock()
     val gitDataRepositoriesImpl: GitDataRepositoriesImpl = mock()
+    val githubRepositoriesObserver: RepositoriesPresenter.JwRepositoriesObserver = mock()
 
     @Before
     fun setUp() {
@@ -41,6 +41,13 @@ class RepositoriesPresenterTest {
         verify(repositoriesView).showLoading()
         verify(repositoriesView).clearRepositoriesList()
         verify(getJwRepositoriesUseCase).execute(any())
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun onDetach() {
+        repositoriesPresenter.onAttach()
+        repositoriesPresenter.onDetach()
     }
 
     fun getStubObservable(): Observable<List<GithubRepositoryModel>> {
